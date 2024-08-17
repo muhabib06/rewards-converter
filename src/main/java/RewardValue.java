@@ -1,27 +1,28 @@
-import java.util.*;
 public class RewardValue {
-    private double cashValue;
-    private double milesValue;
+    private final double cashValue;
+    public static final double MTC_CONVERSION_RATE = 0.0035;//MTC means Miles to Cash
 
-    // Constructor that accepts a cash value
     public RewardValue(double cashValue) {
         this.cashValue = cashValue;
-        this.milesValue = cashValue / 0.0035; // convert cash to miles
     }
 
-    // Constructor that accepts a miles value
     public RewardValue(int milesValue) {
-        this.milesValue = milesValue;
-        this.cashValue = milesValue * 0.0035; // convert miles to cash
+        this.cashValue = convertToCash(milesValue);
     }
 
-    // get the cash value
+    private static int convertToMiles(double cashValue) {
+        return (int) (cashValue / MTC_CONVERSION_RATE);
+    }
+
+    private static double convertToCash(int milesValue) {
+        return milesValue * MTC_CONVERSION_RATE;
+    }
+
     public double getCashValue() {
         return cashValue;
     }
 
-    // get the miles value
-    public double getMilesValue() {
-        return milesValue;
+    public int getMilesValue() {
+        return convertToMiles(this.cashValue);
     }
 }
